@@ -19,6 +19,7 @@ struct Renderable {
 struct State {
     ecs: World,
 }
+
 impl GameState for State {
     fn tick(&mut self, ctx: &mut Rltk) {
         ctx.cls();
@@ -34,5 +35,26 @@ fn main() -> rltk::BError {
     let mut gs = State { ecs: World::new() };
     gs.ecs.register::<Position>();
     gs.ecs.register::<Renderable>();
+    gs.ecs
+        .create_entity()
+        .with(Position { x: 40, y: 25 })
+        .with(Renderable {
+            glyph: rltk::to_cp437('@'),
+            fg: RGB::named(rltk::YELLOW),
+            bg: RGB::named(rltk::BLACK),
+        })
+        .build();
+
+    for i in 0..10 {
+        gs.ecs
+            .create_entity()
+            .with(Position { x: 40, y: 25 })
+            .with(Renderable {
+                glyph: rltk::to_cp437('$'),
+                fg: RGB::named(rltk::GREEN),
+                bg: RGB::named(rltk::BLACK),
+            })
+            .build();
+    }
     rltk::main_loop(context, gs)
 }
