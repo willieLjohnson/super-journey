@@ -50,6 +50,8 @@ pub fn new_map_rooms_and_corridors() -> Vec<TileType> {
   apply_room_to_map(&room1, &mut map);
   apply_room_to_map(&room2, &mut map);
 
+  apply_horizontal_tunnel(&mut map, 25, 40, 23);
+
   map
 }
 
